@@ -4,16 +4,13 @@
   "description": "Boilerplate for a modern web stack",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Microsoft/TypeScript-Node-Starter"
+    "url": "https://github.com/jonluca/vite-typescript-ssr-react"
   },
   "author": "JonLuca DeCaro",
   "license": "MIT",
   "scripts": {
-    "dev": "tsc && concurrently 'yarn watch:tsc' 'yarn watch:server' 'yarn watch:static'",
-    "watch:server": "nodemon --watch dist/server.js --watch dist/src/server dist/server.js",
-    "watch:static": "nodemon --watch static --watch index.html --exec yarn copy-files",
-    "watch:tsc": "tsc -w",
-    "build": "yarn build:client && yarn build:server && yarn copy-files",
+    "dev": "nodemon --watch server.ts --watch src/server --exec 'yarn ts-node server.ts'",
+    "build": "tsc -p tsconfig.prod.json && yarn build:client && yarn build:server && yarn copy-files",
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --ssr src/client/entry-server.tsx --outDir dist/server",
     "serve": "yarn build && cross-env NODE_ENV=production node --experimental-modules dist/server.js",
@@ -21,18 +18,17 @@
     "copy-files": "copyfiles static/* dist/assets && copyfiles index.html dist"
   },
   "dependencies": {
-    "async": "3.2.0",
     "autoprefixer": "^10.2.5",
     "compression": "1.7.4",
     "cross-env": "^7.0.3",
-    "eslint-config-airbnb": "^18.2.1",
     "express": "4.17.1",
     "nodemon": "^2.0.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "serve-static": "^1.14.1"
+    "serve-static": "^1.14.1",
+    "ts-node": "^9.1.1"
   },
   "devDependencies": {
     "@types/compression": "1.7.0",

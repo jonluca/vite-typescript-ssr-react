@@ -5,8 +5,10 @@ import { App } from "./App";
 import "./index.css";
 
 ReactDOM.hydrate(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
   document.getElementById("app"),
 );

@@ -7,8 +7,10 @@ import "./index.css";
 
 export function render(url: string, context: StaticRouterContext) {
   return ReactDOMServer.renderToString(
-    <StaticRouter location={url} context={context}>
-      <App />
-    </StaticRouter>,
+    <React.StrictMode>
+      <StaticRouter location={url} context={context}>
+        <App />
+      </StaticRouter>
+    </React.StrictMode>,
   );
 }
