@@ -1,10 +1,11 @@
 import fs from "fs";
 import path from "path";
-import express from "express";
+import express, { Express, RequestHandler } from "express";
 import { createServer as createViteServer } from "vite";
 import serveStatic from "serve-static";
 import compression from "compression";
 import { getApi } from "./src/server/routes/api";
+import { ServerResponse } from "http";
 
 const isTest = process.env.NODE_ENV === "test" || !!process.env.VITE_TEST_BUILD;
 
@@ -13,10 +14,9 @@ const createServer = async (root = process.cwd(), isProd = process.env.NODE_ENV 
 
   const indexProd = isProd ? fs.readFileSync(resolve("./client/index.html"), "utf-8") : "";
 
-  const app = express();
-
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
+  const app: Express = express();
+  app.use(express.json() as RequestHandler);
+  app.use(express.urlencoded({ extended: true }) as RequestHandler);
 
   let vite: any;
 
@@ -38,11 +38,10 @@ const createServer = async (root = process.cwd(), isProd = process.env.NODE_ENV 
     app.use(vite.middlewares);
   } else {
     app.use(compression());
-    app.use(
-      serveStatic(resolve("./client"), {
-        index: false,
-      }),
-    );
+    const requestHandler = serveStatic<ServerResponse>(resolve("./client"), {
+      index: false,
+    }) as RequestHandler;
+    app.use(requestHandler);
   }
 
   app.use("/api", getApi);
@@ -86,9 +85,9 @@ const createServer = async (root = process.cwd(), isProd = process.env.NODE_ENV 
 };
 
 createServer().then(({ app }) => {
-  const port = process.env.PORT || 7456
+  const port = process.env.PORT || 7456;
   app.listen(Number(port), "0.0.0.0", () => {
-    console.log(`App is listening on port ${port}`);
+    console.log(`App is listening on http://localhost:${port}`);
   });
 });
 
