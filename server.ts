@@ -74,7 +74,7 @@ const createServer = async (root = process.cwd(), isProd = process.env.NODE_ENV 
       const html = template.replace(`<!--app-html-->`, appHtml);
 
       res.status(200).set({ "Content-Type": "text/html" }).end(html);
-    } catch (e) {
+    } catch (e: any) {
       !isProd && vite.ssrFixStacktrace(e);
       console.error(e.stack);
       res.status(500).end(e.stack);
