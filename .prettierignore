@@ -1,0 +1,9 @@
+dist
+build
+node_modules
+package.json
+*.config.*
+README.md
+index.html
+.github
+tsconfig.*

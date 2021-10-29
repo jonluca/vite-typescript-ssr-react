@@ -5,8 +5,8 @@ export interface Context {
   setName: (val: string) => void;
 }
 const defaultVal = {
-  name: '',
-  setName: () => {}
+  name: "",
+  setName: () => {},
 } as Context;
 
 const context = React.createContext(defaultVal);
@@ -15,7 +15,7 @@ const { Provider } = context;
 
 export const ContextWrapper = ({ children }: { children: any }) => {
   const [name, setName] = useState(defaultVal.name);
-  return <Provider value={{ name,setName }}>{children}</Provider>;
+  return <Provider value={{ name, setName }}>{children}</Provider>;
 };
 
 export const useAppContext = () => useContext(context);
