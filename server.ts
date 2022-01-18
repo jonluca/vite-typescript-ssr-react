@@ -1,18 +1,22 @@
 import fs from "fs";
-import path from "path";
 import express, { Express, RequestHandler } from "express";
 import { createServer as createViteServer } from "vite";
 import serveStatic from "serve-static";
 import compression from "compression";
 import { getApi } from "./src/server/routes/api";
 import { ServerResponse } from "http";
+import { fileURLToPath } from "url";
+import { dirname, resolve } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const isTest = process.env.NODE_ENV === "test" || !!process.env.VITE_TEST_BUILD;
 
 const createServer = async (root = process.cwd(), isProd = process.env.NODE_ENV === "production") => {
-  const resolve = (p: string) => path.resolve(__dirname, p);
+  const localResolve = (p: string) => resolve(__dirname, p);
 
-  const indexProd = isProd ? fs.readFileSync(resolve("./client/index.html"), "utf-8") : "";
+  const indexProd = isProd ? fs.readFileSync(localResolve("./client/index.html"), "utf-8") : "";
 
   const app: Express = express();
   app.use(express.json() as RequestHandler);
@@ -27,8 +31,6 @@ const createServer = async (root = process.cwd(), isProd = process.env.NODE_ENV 
       server: {
         middlewareMode: true,
         watch: {
-          // During tests we edit the files too ft and sometimes chokidar
-          // misses change events, so enforce polling for consistency
           usePolling: true,
           interval: 100,
         },
@@ -38,7 +40,7 @@ const createServer = async (root = process.cwd(), isProd = process.env.NODE_ENV 
     app.use(vite.middlewares);
   } else {
     app.use(compression());
-    const requestHandler = serveStatic<ServerResponse>(resolve("./client"), {
+    const requestHandler = serveStatic<ServerResponse>(localResolve("./client"), {
       index: false,
     }) as RequestHandler;
     app.use(requestHandler);
@@ -54,7 +56,7 @@ const createServer = async (root = process.cwd(), isProd = process.env.NODE_ENV 
       let render;
       if (!isProd) {
         // always read fresh template in dev
-        template = fs.readFileSync(resolve("index.html"), "utf-8");
+        template = fs.readFileSync(localResolve("index.html"), "utf-8");
         template = await vite.transformIndexHtml(url, template);
         render = (await vite.ssrLoadModule("/src/client/entry-server.tsx")).render;
       } else {
@@ -63,13 +65,7 @@ const createServer = async (root = process.cwd(), isProd = process.env.NODE_ENV 
         render = entryServer.render;
       }
 
-      const context: any = {};
-      const appHtml = render(url, context);
-
-      if (context.url) {
-        // Somewhere a `<Redirect>` was rendered
-        return res.redirect(301, context.url);
-      }
+      const appHtml = render(url);
 
       const html = template.replace(`<!--app-html-->`, appHtml);
 

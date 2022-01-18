@@ -15,11 +15,11 @@
     "lib": ["DOM", "ESNext"],
     "strict": true,
     "outDir": "dist",
-    "module": "CommonJS",
+    "module": "ESNext",
     "moduleResolution": "Node",
     "skipLibCheck": true,
     "sourceMap": true,
-    "target": "ES2020",
+    "target": "ES2020"
   },
   "include": ["src/**/*", "types/*", "*"]
 }

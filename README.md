@@ -7,7 +7,7 @@ A *blazingly* modern web development stack. This template repo tries to achieve 
 ![video](video.gif)
 
 * [React 17](https://reactjs.org/blog/2020/10/20/react-v17.html)
-* [Typescript 4.3](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3-rc/)
+* [Typescript 4.5](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3-rc/)
 * [Vite with Vite SSR](https://vitejs.dev/guide/ssr.html)
 * [GitHub Actions](https://github.com/features/actions)
 * [Tailwind CSS](https://tailwindui.com/)
@@ -17,10 +17,19 @@ A *blazingly* modern web development stack. This template repo tries to achieve 
 
 ```
 yarn
-yarn dev
+yarn dev:server
 ```
 
-That should be enough to get started. It will open to http://localhost:7456
+That should start the server. It will open to http://localhost:7456.
+
+If you'd like to just develop the UI, you can use
+
+```bash
+yarn
+yarn dev:client
+```
+
+To start the native vite client.
 
 ## Building
 
