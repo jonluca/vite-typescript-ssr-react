@@ -18,7 +18,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "coverage": "jest --coverage",
-    "serve": "yarn build && cross-env NODE_ENV=production node --experimental-modules dist/server.js",
+    "serve": "yarn build && cross-env NODE_ENV=production node --experimental-modules --experimental-specifier-resolution=node dist/server.js",
     "clean": "rimraf dist/",
     "copy-files": "copyfiles static/* dist/assets && copyfiles index.html dist",
     "format": "prettier --write ."
