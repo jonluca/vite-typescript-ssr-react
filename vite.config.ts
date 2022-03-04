@@ -6,5 +6,5 @@ export default defineConfig({
   plugins: [reactRefresh()],
   build: {
     minify: false,
-  },
+  },root: ''
 })
