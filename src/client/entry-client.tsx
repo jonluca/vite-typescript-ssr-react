@@ -1,14 +1,23 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot, hydrateRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { App } from "./App";
 import "./index.css";
 
-ReactDOM.hydrate(
+const container = document.getElementById("app");
+
+const FullApp = () => (
   <React.StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById("app"),
+  </React.StrictMode>
 );
+
+// @ts-ignore
+if (import.meta.hot) {
+  const root = createRoot(container!); // createRoot(container!) if you use TypeScript
+  root.render(<FullApp />);
+} else {
+  hydrateRoot(container!, <FullApp />);
+}

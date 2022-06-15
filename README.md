@@ -1,17 +1,17 @@
-# Vite Typescript React 17 SSR
+# Vite Typescript React 18 SSR
 
 [![Node CI](https://github.com/jonluca/vite-typescript-ssr-react/actions/workflows/nodejs.yml/badge.svg)](https://github.com/jonluca/vite-typescript-ssr-react/actions/workflows/nodejs.yml)
 
-A *blazingly* modern web development stack. This template repo tries to achieve the minimum viable example for each of the following:
+A _blazingly_ modern web development stack. This template repo tries to achieve the minimum viable example for each of the following:
 
 ![video](video.gif)
 
-* [React 17](https://reactjs.org/blog/2020/10/20/react-v17.html)
-* [Typescript 4.5](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3-rc/)
-* [Vite with Vite SSR](https://vitejs.dev/guide/ssr.html)
-* [GitHub Actions](https://github.com/features/actions)
-* [Tailwind CSS](https://tailwindui.com/)
-* [Prettier](https://prettier.io/) & [ESLint](https://eslint.org/)
+- [React 18](https://reactjs.org/blog/2022/03/29/react-v18.html)
+- [Typescript 4.7](https://devblogs.microsoft.com/typescript/announcing-typescript-4-7/)
+- [Vite with Vite SSR](https://vitejs.dev/guide/ssr.html)
+- [GitHub Actions](https://github.com/features/actions)
+- [Tailwind CSS](https://tailwindui.com/)
+- [Prettier](https://prettier.io/) & [ESLint](https://eslint.org/)
 
 ## Development
 
