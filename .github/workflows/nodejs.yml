@@ -3,28 +3,20 @@ name: Node CI
 on: [push, pull_request]
 
 jobs:
-  build-node:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
         with:
-          node-version: 16.x
-      - name: Get npm cache directory
-        id: npm-cache
+          node-version: 18
+      - name: yarn install, build, and test
         run: |
-          echo "::set-output name=dir::$(npm config get cache)"
-      - uses: actions/cache@v1
-        with:
-          path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: npm install, build
-        run: |
-          yarn install --frozen-lockfile
-          yarn run build
+          yarn --frozen-lockfile
+          yarn build
+          yarn typecheck
+          yarn test
         env:
           CI: true
