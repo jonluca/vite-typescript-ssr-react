@@ -3,7 +3,6 @@ module.exports = {
     browser: true,
     node: true,
     es2021: true,
-    "jest/globals": true,
   },
   extends: ["plugin:react/recommended", "prettier", "eslint:recommended"],
   parser: "@typescript-eslint/parser",
@@ -14,7 +13,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["jest", "react", "@typescript-eslint"],
+  plugins: ["react", "@typescript-eslint", "react-hooks"],
   rules: {
     // note you must disable the base rule as it can report incorrect errors
     "no-use-before-define": "off",

@@ -11,14 +11,22 @@
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
     "jsx": "react-jsxdev",
-    "lib": ["DOM", "ESNext"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "strict": true,
     "outDir": "dist",
-    "module": "CommonJS",
+    "module": "ES2020",
     "moduleResolution": "Node",
     "skipLibCheck": true,
     "sourceMap": true,
-    "target": "ES2020"
+    "target": "ES2017",
+    "types": ["vite", "vite/client", "vitest"],
+    "typeRoots": ["node_modules/@types", "node_modules/vitest/dist"]
   },
-  "include": ["src/**/*", "types/*", "*"]
+  "include": ["src/**/*", "types/*", "node_modules/vitest/dist/index.d.ts", "server.ts"],
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
 }
