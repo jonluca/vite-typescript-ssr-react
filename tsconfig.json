@@ -18,11 +18,9 @@
     "moduleResolution": "Node",
     "skipLibCheck": true,
     "sourceMap": true,
-    "target": "ES2017",
-    "types": ["vite", "vite/client", "vitest"],
-    "typeRoots": ["node_modules/@types", "node_modules/vitest/dist"]
+    "target": "ES2017"
   },
-  "include": ["src/**/*", "types/*", "node_modules/vitest/dist/index.d.ts", "server.ts"],
+  "include": ["src/**/*", "types/*", "server.ts", "node_modules/vite/types/*"],
   "ts-node": {
     "transpileOnly": true,
     "compilerOptions": {

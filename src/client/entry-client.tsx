@@ -14,9 +14,8 @@ const FullApp = () => (
   </React.StrictMode>
 );
 
-// @ts-ignore
-if (import.meta.hot) {
-  const root = createRoot(container!); // createRoot(container!) if you use TypeScript
+if (import.meta.hot || !container?.innerText) {
+  const root = createRoot(container!);
   root.render(<FullApp />);
 } else {
   hydrateRoot(container!, <FullApp />);

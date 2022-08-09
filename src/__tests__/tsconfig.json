@@ -1,0 +1,8 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["vite", "vite/client", "vitest"],
+    "typeRoots": ["node_modules/@types", "node_modules/vitest/dist"]
+  },
+  "include": [".", "../../vite.config.ts"]
+}
