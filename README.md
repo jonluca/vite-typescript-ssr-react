@@ -7,7 +7,7 @@ A _blazingly_ modern web development stack. This template repo tries to achieve 
 ![video](video.gif)
 
 - [React 18](https://reactjs.org/blog/2022/03/29/react-v18.html)
-- [Typescript 4.7](https://devblogs.microsoft.com/typescript/announcing-typescript-4-7/)
+- [Typescript 4.9](https://devblogs.microsoft.com/typescript/announcing-typescript-4-7/)
 - [Vite with Vite SSR](https://vitejs.dev/guide/ssr.html)
 - [GitHub Actions](https://github.com/features/actions)
 - [Tailwind CSS](https://tailwindui.com/)

@@ -14,7 +14,7 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "strict": true,
     "outDir": "dist",
-    "module": "ES2020",
+    "module": "ESNext",
     "moduleResolution": "Node",
     "skipLibCheck": true,
     "sourceMap": true,
