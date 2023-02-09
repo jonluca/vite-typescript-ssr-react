@@ -91,7 +91,7 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
       next(e);
     }
   });
-  const port = process.env.PORT || 7456;
+  const port = process.env.PORT || 2432;
   app.listen(Number(port), "0.0.0.0", () => {
     console.log(`App is listening on http://localhost:${port}`);
   });

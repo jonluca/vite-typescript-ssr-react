@@ -3,7 +3,7 @@
     "allowJs": true,
     "alwaysStrict": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
+    "baseUrl": "./src/client",
     "checkJs": true,
     "declaration": true,
     "declarationMap": true,
