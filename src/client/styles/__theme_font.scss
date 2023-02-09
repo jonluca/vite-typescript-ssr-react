@@ -1,0 +1,96 @@
+// FONT FACE --INTER
+@font-face {
+  font-family: Inter;
+  font-weight: 300;
+  src: url("../fonts/Inter/static/Inter-Light.ttf");
+}
+@font-face {
+  font-family: Inter;
+  font-weight: 400;
+  src: url("../fonts/Inter/static/Inter-Regular.ttf");
+}
+@font-face {
+  font-family: Inter;
+  font-weight: 500;
+  src: url("../fonts/Inter/static/Inter-Medium.ttf");
+}
+@font-face {
+  font-family: Inter;
+  font-weight: 600;
+  src: url("../fonts/Inter/static/Inter-SemiBold.ttf");
+}
+@font-face {
+  font-family: Inter;
+  font-weight: 700;
+  src: url("../fonts/Inter/static/Inter-Bold.ttf");
+}
+
+// Courgette
+@font-face {
+  font-family: Courgette;
+  src: url("../fonts/Courgette/Courgette-Regular.ttf");
+}
+
+// POPPINS
+@font-face {
+  font-family: Poppins;
+  font-weight: 300;
+  src: url("../fonts/Poppins/Poppins-Light.ttf");
+}
+@font-face {
+  font-family: Poppins;
+  font-weight: 400;
+  src: url("../fonts/Poppins/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: Poppins;
+  font-weight: 500;
+  src: url("../fonts/Poppins/Poppins-Medium.ttf");
+}
+@font-face {
+  font-family: Poppins;
+  font-weight: 600;
+  src: url("../fonts/Poppins/Poppins-SemiBold.ttf");
+}
+@font-face {
+  font-family: Poppins;
+  font-weight: 700;
+  src: url("../fonts/Poppins/Poppins-Bold.ttf");
+}
+
+//
+html body {
+  @apply font-body antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  @apply font-display;
+}
+
+:root {
+  --font-display: Poppins;
+  --font-body: Poppins;
+}
+
+.theme-animals {
+  --font-display: Inter;
+  --font-body: Inter;
+}
+
+.theme-demo-5 {
+  --font-display: Courgette;
+  --font-body: Courgette;
+}
+
+.theme-demo-6 {
+  --font-display: "PT Sans";
+  --font-body: "Rubik";
+}
+
+.theme-demo-7 {
+  --font-display: "Noto Sans Arabic";
+  --font-body: "Noto Sans Arabic";
+}
