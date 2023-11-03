@@ -18,7 +18,8 @@
     "moduleResolution": "Node",
     "skipLibCheck": true,
     "sourceMap": true,
-    "target": "ES2017"
+    "target": "ES2017",
+    "types": ["vite/client"]
   },
   "include": ["src/**/*", "types/*", "server.ts", "node_modules/vite/types/*"],
   "ts-node": {

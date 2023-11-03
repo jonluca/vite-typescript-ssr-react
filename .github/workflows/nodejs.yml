@@ -8,13 +8,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 18
+      - name: Use Node.js 19
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 19
       - name: yarn install, build, and test
         run: |
-          yarn --frozen-lockfile
+          yarn install --immutable
           yarn build
           yarn typecheck
           yarn test
