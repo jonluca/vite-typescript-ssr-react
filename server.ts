@@ -51,7 +51,7 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
   app.use("/public", requestHandler);
 
   if (isProd) {
-    app.use(compression());
+    app.use(compression() as any);
     app.use(
       serveStatic(resolve("client"), {
         index: false,
