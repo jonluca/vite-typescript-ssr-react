@@ -6,6 +6,7 @@ import compression from "compression";
 import serveStatic from "serve-static";
 import { createServer as createViteServer } from "vite";
 import { fileURLToPath } from "url";
+import { isHtmlNavigationRequest } from "./src/server/html-navigation.js";
 const isTest = process.env.NODE_ENV === "test" || !!process.env.VITE_TEST_BUILD;
 
 const __filename = fileURLToPath(import.meta.url);
@@ -58,32 +59,39 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
       }),
     );
   }
-  const stylesheets = getStyleSheets();
-
-  // 1. Read index.html
-  const baseTemplate = await fs.readFile(isProd ? resolve("client/index.html") : resolve("index.html"), "utf-8");
   const productionBuildPath = path.join(__dirname, "./server/entry-server.js");
   const devBuildPath = path.join(__dirname, "./src/client/entry-server.tsx");
-  const buildModule = isProd ? productionBuildPath : devBuildPath;
-  const { render } = await vite.ssrLoadModule(buildModule);
+  const productionTemplate = isProd ? await fs.readFile(resolve("client/index.html"), "utf-8") : null;
+  const productionRender = isProd ? (await vite.ssrLoadModule(productionBuildPath)).render : null;
+  const productionStylesheets = isProd ? await getStyleSheets() : null;
 
-  app.use("*", async (req: Request, res: Response, next: NextFunction) => {
+  app.get("*", async (req: Request, res: Response, next: NextFunction) => {
     const url = req.originalUrl;
 
+    if (!isHtmlNavigationRequest(req.method, req.path, req.get("accept"))) {
+      next();
+      return;
+    }
+
     try {
+      // Read development inputs for every request so Vite invalidation and
+      // edits to index.html are reflected without restarting the server.
+      const baseTemplate = productionTemplate ?? (await fs.readFile(resolve("index.html"), "utf-8"));
+
       // 2. Apply Vite HTML transforms. This injects the Vite HMR client, and
       //    also applies HTML transforms from Vite plugins, e.g. global preambles
       //    from @vitejs/plugin-react
       const template = await vite.transformIndexHtml(url, baseTemplate);
-      // 3. Load the server entry. vite.ssrLoadModule automatically transforms
+      // 3. Load the development server entry on every request. vite.ssrLoadModule automatically transforms
       //    your ESM source code to be usable in Node.js! There is no bundling
       //    required, and provides efficient invalidation similar to HMR.
+      const render = productionRender ?? (await vite.ssrLoadModule(devBuildPath)).render;
 
       // 4. render the app HTML. This assumes entry-server.js's exported `render`
       //    function calls appropriate framework SSR APIs,
       //    e.g. ReactDOMServer.renderToString()
       const appHtml = await render(url);
-      const cssAssets = await stylesheets;
+      const cssAssets = productionStylesheets ?? (await getStyleSheets());
 
       // 5. Inject the app-rendered HTML into the template.
       const html = template.replace(`<!--app-html-->`, appHtml).replace(`<!--head-->`, cssAssets);
@@ -105,4 +113,4 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
   });
 }
 
-createServer();
+void createServer();
